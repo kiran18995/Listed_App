@@ -8,24 +8,24 @@
     <fragment
         android:id="@+id/navigation_links"
         android:name="com.kiran.listedapp.ui.links.LinksFragment"
-        android:label="@string/title_links"
+        android:label="@string/links"
         tools:layout="@layout/fragment_links" />
 
     <fragment
         android:id="@+id/navigation_courses"
         android:name="com.kiran.listedapp.ui.courses.CoursesFragment"
-        android:label="@string/title_courses"
+        android:label="@string/courses"
         tools:layout="@layout/fragment_courses" />
 
     <fragment
         android:id="@+id/navigation_campaigns"
         android:name="com.kiran.listedapp.ui.campaigns.CampaignsFragment"
-        android:label="@string/title_campaigns"
+        android:label="@string/campaigns"
         tools:layout="@layout/fragment_campaigns" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.kiran.listedapp.ui.profile.ProfileFragment"
-        android:label="@string/title_campaigns"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
