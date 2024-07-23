@@ -131,7 +131,7 @@ class LinksFragment : Fragment() {
 
     private fun updateDataToViews(dashboard: Dashboard) {
         binding.apply {
-            lineChart.setStyle(requireContext(), dashboard.data?.overallUrlChart?: mutableMapOf())
+            dashboard.data?.overallUrlChart?.let { lineChart.setStyle(requireContext(), it) }
             clickCount.text = dashboard.todayClicks.toString()
             locationName.text = dashboard.topLocation
             socialName.text = dashboard.topSource
