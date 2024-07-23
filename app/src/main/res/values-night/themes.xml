@@ -12,4 +12,9 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="LaunchTheme" parent="Theme.ListedApp">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <!-- Customize other attributes as needed -->
+    </style>
 </resources>

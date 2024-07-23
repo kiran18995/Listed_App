@@ -10,22 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.kiran.listedapp.R
-import com.kiran.listedapp.databinding.FragmentLinksBinding
 import com.kiran.listedapp.data.models.Dashboard
-import com.kiran.listedapp.utils.GradientFillDrawable
+import com.kiran.listedapp.databinding.FragmentLinksBinding
 import com.kiran.listedapp.utils.Resource
+import com.kiran.listedapp.utils.setStyle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -85,21 +78,19 @@ class LinksFragment : Fragment() {
     }
 
     private fun setupAdapters() {
-        topLinksAdapter =
-            TopLinksAdapter(object : TopLinksAdapter.ItemClickListener {
-                override fun onItemClick(smartLink: String?) {
-                    smartLinkCopied(smartLink)
-                }
-            })
+        topLinksAdapter = TopLinksAdapter(object : TopLinksAdapter.ItemClickListener {
+            override fun onItemClick(smartLink: String?) {
+                smartLinkCopied(smartLink)
+            }
+        })
         binding.topLinkList.layoutManager = LinearLayoutManager(requireContext())
         binding.topLinkList.adapter = topLinksAdapter
 
-        recentLinksAdapter =
-            RecentLinksAdapter(object : RecentLinksAdapter.ItemClickListener {
-                override fun onItemClick(smartLink: String?) {
-                    smartLinkCopied(smartLink)
-                }
-            })
+        recentLinksAdapter = RecentLinksAdapter(object : RecentLinksAdapter.ItemClickListener {
+            override fun onItemClick(smartLink: String?) {
+                smartLinkCopied(smartLink)
+            }
+        })
         binding.recentLinkList.layoutManager = LinearLayoutManager(requireContext())
         binding.recentLinkList.adapter = recentLinksAdapter
     }
@@ -139,8 +130,8 @@ class LinksFragment : Fragment() {
     }
 
     private fun updateDataToViews(dashboard: Dashboard) {
-        loadGraphData(dashboard.data?.overallUrlChart!!)
         binding.apply {
+            lineChart.setStyle(requireContext(), dashboard.data?.overallUrlChart?: mutableMapOf())
             clickCount.text = dashboard.todayClicks.toString()
             locationName.text = dashboard.topLocation
             socialName.text = dashboard.topSource
@@ -156,50 +147,6 @@ class LinksFragment : Fragment() {
         binding.topLinks.requestFocus()
         topLinksAdapter.setChange(dashboard.data?.topLinks ?: emptyList())
         recentLinksAdapter.setChange(dashboard.data?.recentLinks ?: emptyList())
-    }
-
-    private fun loadGraphData(overallUrlChart: MutableMap<String, Int>) {
-        val months = overallUrlChart.keys.toMutableList()
-        val values = overallUrlChart.values.toMutableList()
-
-        val entries = mutableListOf<Entry>()
-        for (i in months.indices) {
-            entries.add(Entry(i.toFloat(), values[i].toFloat()))
-        }
-
-        // Create a data set and customize it
-        val dataSet = LineDataSet(entries, "")
-        dataSet.color = ContextCompat.getColor(requireContext(), R.color.primary_color)
-        dataSet.lineWidth = 2f
-        dataSet.circleRadius = 4f
-        dataSet.setDrawValues(false)
-        dataSet.valueTextSize = 12f
-        dataSet.setDrawFilled(true)
-
-        val fillDrawable = GradientFillDrawable()
-        dataSet.fillDrawable = fillDrawable
-
-        binding.apply {
-            dataSet.setDrawCircles(false)
-            val rightAxis = lineChart.axisRight
-            rightAxis.isEnabled = false
-            // Create a LineData object and set the data set
-            val lineData = LineData(dataSet)
-            // Set the data to the chart
-            lineChart.data = lineData
-            // Customize the x-axis labels
-            val xAxis: XAxis = lineChart.xAxis
-            xAxis.valueFormatter = IndexAxisValueFormatter(months)
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.setDrawAxisLine(false)
-            val legend: Legend = lineChart.legend
-            legend.isEnabled = true // Enable the legend
-            legend.setDrawInside(false) // Place the legend outside the chart
-            legend.form = Legend.LegendForm.NONE
-            lineChart.description.isEnabled = false
-            // Refresh the chart
-            lineChart.invalidate()
-        }
     }
 
     override fun onDestroyView() {
