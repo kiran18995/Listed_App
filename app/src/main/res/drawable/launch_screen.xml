@@ -2,6 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Background color or image for the launch screen -->
-    <item android:drawable="@color/white" />
+    <item android:drawable="@color/primary_color" />
+
+    <!-- Image or logo, centered horizontally and vertically -->
+    <item
+        android:drawable="@drawable/openinapp_logo"
+        android:gravity="center" />
 
 </layer-list>
