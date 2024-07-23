@@ -11,15 +11,16 @@ data mentioned below accordingly from the given UI template
 getting from the API response
 
 ## Getting Started
-Directly through this link for APK: [APK](https://github.com/kiran18995/listed_task/tree/5963bfe3bb5944782b6cf08883fdcb77fb100e39/APK)
+Directly through this link for APK: [APK](https://github.com/kiran18995/Github_Search/releases)
 
 ### Displaying Greetings from Local Time
-<img src="https://github.com/kiran18995/listed_task/assets/48232762/7fe6394b-0153-4dea-8eb5-f884115697cc" alt="My Image" width="200" height="400">
+
+<img src="https://github.com/user-attachments/assets/c2bd73d6-93b2-4ac9-8e04-d7221dfc6817" alt="My Image" width="200" height="400">
 
 I have added greetings that will show from local time.
 
 ### Displaying Name from API
-<img src="https://github.com/kiran18995/listed_task/assets/48232762/7fe6394b-0153-4dea-8eb5-f884115697cc" alt="My Image" width="200" height="400">
+<img src="https://github.com/user-attachments/assets/c2bd73d6-93b2-4ac9-8e04-d7221dfc6817" alt="My Image" width="200" height="400">
 
 The name which is showing here is hardcoded because the name is not available in the given API.
 
