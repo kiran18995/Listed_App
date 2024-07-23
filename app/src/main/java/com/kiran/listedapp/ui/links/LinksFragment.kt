@@ -23,7 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.kiran.listedapp.R
 import com.kiran.listedapp.databinding.FragmentLinksBinding
-import com.kiran.listedapp.models.Dashboard
+import com.kiran.listedapp.data.models.Dashboard
 import com.kiran.listedapp.utils.GradientFillDrawable
 import com.kiran.listedapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint

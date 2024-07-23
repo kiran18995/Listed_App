@@ -1,4 +1,4 @@
-package com.kiran.listedapp.models
+package com.kiran.listedapp.data.models
 
 import android.os.Parcelable
 import com.example.listedtask.models.Data

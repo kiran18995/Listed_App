@@ -3,7 +3,7 @@ package com.kiran.listedapp.ui.links
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiran.listedapp.data.repository.DashboardRepository
-import com.kiran.listedapp.models.Dashboard
+import com.kiran.listedapp.data.models.Dashboard
 import com.kiran.listedapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

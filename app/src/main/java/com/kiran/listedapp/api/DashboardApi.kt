@@ -1,6 +1,6 @@
 package com.kiran.listedapp.api
 
-import com.kiran.listedapp.models.Dashboard
+import com.kiran.listedapp.data.models.Dashboard
 import com.kiran.listedapp.BuildConfig
 import retrofit2.http.GET
 
