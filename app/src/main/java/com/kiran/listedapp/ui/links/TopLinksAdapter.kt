@@ -10,7 +10,6 @@ import com.kiran.listedapp.databinding.ItemLinkListBinding
 import java.time.format.DateTimeFormatter
 
 class TopLinksAdapter(
-    private val context: Context,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<TopLinksAdapter.ViewHolder>() {
 
@@ -43,7 +42,7 @@ class TopLinksAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(topLinksList: TopLinks) {
-            Glide.with(context).load(topLinksList.originalImage).into(binding.logo)
+            Glide.with(binding.logo.context).load(topLinksList.originalImage).into(binding.logo)
             binding.linkName.text = topLinksList.title
             binding.linkDate.text = filterDate(topLinksList.createdAt)
             binding.noClicks.text = topLinksList.totalClicks.toString()

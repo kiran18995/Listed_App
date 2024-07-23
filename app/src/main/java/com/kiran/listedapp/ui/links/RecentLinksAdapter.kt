@@ -1,15 +1,11 @@
 package com.kiran.listedapp.ui.links
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.listedtask.models.RecentLinks
-import com.kiran.listedapp.R
+import com.kiran.listedapp.databinding.ItemLinkListBinding
 import java.time.format.DateTimeFormatter
 
 const val DELIMITER = "T"
@@ -18,7 +14,7 @@ const val DEFAULT_DATE = "2022-08-09"
 const val DATE_OF_PATTERN = "dd MMM yyyy"
 
 class RecentLinksAdapter(
-    private val context: Context, private val itemClickListener: ItemClickListener
+    private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RecentLinksAdapter.ViewHolder>() {
     private var recentLinkList: List<RecentLinks> = emptyList()
 
@@ -32,8 +28,9 @@ class RecentLinksAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_link_list, parent, false)
-        return ViewHolder(view)
+        val binding =
+            ItemLinkListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -44,21 +41,16 @@ class RecentLinksAdapter(
         holder.bind(recentLinkList[position])
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val logo = itemView.findViewById<ImageView>(R.id.logo)
-        private val linkName = itemView.findViewById<TextView>(R.id.link_name)
-        private val linkDate = itemView.findViewById<TextView>(R.id.link_date)
-        private val noClicks = itemView.findViewById<TextView>(R.id.no_clicks)
-        private val linkUrl = itemView.findViewById<TextView>(R.id.link_url)
-        private val copyLink = itemView.findViewById<ImageView>(R.id.copy_to_clipboard)
+    inner class ViewHolder(private val binding: ItemLinkListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(recentLinksList: RecentLinks) {
-            Glide.with(context).load(recentLinksList.originalImage).into(logo)
-            linkName.text = recentLinksList.title
-            linkDate.text = filterDate(recentLinksList.createdAt)
-            noClicks.text = recentLinksList.totalClicks.toString()
-            linkUrl.text = recentLinksList.smartLink
-            copyLink.setOnClickListener {
+            Glide.with(binding.logo.context).load(recentLinksList.originalImage).into(binding.logo)
+            binding.linkName.text = recentLinksList.title
+            binding.linkDate.text = filterDate(recentLinksList.createdAt)
+            binding.noClicks.text = recentLinksList.totalClicks.toString()
+            binding.linkUrl.text = recentLinksList.smartLink
+            binding.linkCopy.setOnClickListener {
                 itemClickListener.onItemClick(recentLinksList.smartLink)
             }
         }

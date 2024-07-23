@@ -44,7 +44,7 @@ class LinksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLinksBinding.inflate(inflater, container, false)
-        adaptersInit()
+        setupAdapters()
         focusChangeListenersInit()
         return binding.root
     }
@@ -84,9 +84,9 @@ class LinksFragment : Fragment() {
         }
     }
 
-    private fun adaptersInit() {
+    private fun setupAdapters() {
         topLinksAdapter =
-            TopLinksAdapter(requireContext(), object : TopLinksAdapter.ItemClickListener {
+            TopLinksAdapter(object : TopLinksAdapter.ItemClickListener {
                 override fun onItemClick(smartLink: String?) {
                     smartLinkCopied(smartLink)
                 }
@@ -95,7 +95,7 @@ class LinksFragment : Fragment() {
         binding.topLinkList.adapter = topLinksAdapter
 
         recentLinksAdapter =
-            RecentLinksAdapter(requireContext(), object : RecentLinksAdapter.ItemClickListener {
+            RecentLinksAdapter(object : RecentLinksAdapter.ItemClickListener {
                 override fun onItemClick(smartLink: String?) {
                     smartLinkCopied(smartLink)
                 }
