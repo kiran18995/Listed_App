@@ -1,11 +1,10 @@
-package com.example.listedtask.models
+package com.kiran.listedapp.data.models
 
 import android.os.Parcelable
-import androidx.annotation.Keep
+import com.example.listedtask.models.RecentLinks
+import com.example.listedtask.models.TopLinks
 import com.google.gson.annotations.SerializedName
-import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 @Parcelize
 data class Data(

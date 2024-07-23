@@ -1,7 +1,6 @@
 package com.kiran.listedapp.data.models
 
 import android.os.Parcelable
-import com.example.listedtask.models.Data
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
