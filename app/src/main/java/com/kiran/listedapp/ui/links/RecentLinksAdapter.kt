@@ -18,13 +18,17 @@ const val DEFAULT_DATE = "2022-08-09"
 const val DATE_OF_PATTERN = "dd MMM yyyy"
 
 class RecentLinksAdapter(
-    private val context: Context,
-    private val RecentLinksList: List<RecentLinks>,
-    private val itemClickListener: ItemClickListener
+    private val context: Context, private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RecentLinksAdapter.ViewHolder>() {
+    private var recentLinkList: List<RecentLinks> = emptyList()
 
     interface ItemClickListener {
         fun onItemClick(smartLink: String?)
+    }
+
+    fun setChange(recentLinkList: List<RecentLinks>) {
+        this.recentLinkList = recentLinkList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,11 +37,11 @@ class RecentLinksAdapter(
     }
 
     override fun getItemCount(): Int {
-        return RecentLinksList.size
+        return recentLinkList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(RecentLinksList[position])
+        holder.bind(recentLinkList[position])
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

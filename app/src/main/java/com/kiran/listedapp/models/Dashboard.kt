@@ -1,23 +1,24 @@
-package com.example.listedtask.models
+package com.kiran.listedapp.models
 
-import androidx.annotation.Keep
-import com.squareup.moshi.Json
-import java.io.Serializable
+import android.os.Parcelable
+import com.example.listedtask.models.Data
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-@Keep
+@Parcelize
 data class Dashboard(
-    @Json(name = "status") var status: Boolean,
-    @Json(name = "statusCode") var statusCode: Int? = null,
-    @Json(name = "message") var message: String? = null,
-    @Json(name = "support_whatsapp_number") var supportWhatsappNumber: String? = null,
-    @Json(name = "extra_income") var extraIncome: Double? = null,
-    @Json(name = "total_links") var totalLinks: Int? = null,
-    @Json(name = "total_clicks") var totalClicks: Int? = null,
-    @Json(name = "today_clicks") var todayClicks: Int? = null,
-    @Json(name = "top_source") var topSource: String? = null,
-    @Json(name = "top_location") var topLocation: String? = null,
-    @Json(name = "startTime") var startTime: String? = null,
-    @Json(name = "links_created_today") var linksCreatedToday: Int? = null,
-    @Json(name = "applied_campaign") var appliedCampaign: Int? = null,
-    @Json(name = "data") var data: Data? = Data()
-) : Serializable
+    @SerializedName("status") var status: Boolean,
+    @SerializedName("statusCode") var statusCode: Int? = null,
+    @SerializedName("message") var message: String? = null,
+    @SerializedName("support_whatsapp_number") var supportWhatsappNumber: String? = null,
+    @SerializedName("extra_income") var extraIncome: Double? = null,
+    @SerializedName("total_links") var totalLinks: Int? = null,
+    @SerializedName("total_clicks") var totalClicks: Int? = null,
+    @SerializedName("today_clicks") var todayClicks: Int? = null,
+    @SerializedName("top_source") var topSource: String? = null,
+    @SerializedName("top_location") var topLocation: String? = null,
+    @SerializedName("startTime") var startTime: String? = null,
+    @SerializedName("links_created_today") var linksCreatedToday: Int? = null,
+    @SerializedName("applied_campaign") var appliedCampaign: Int? = null,
+    @SerializedName("data") var data: Data? = null
+) : Parcelable

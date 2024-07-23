@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -16,7 +17,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        val baseUrl = extra.properties["BASE_URL"] as String? ?: "https://api.inopenapp.com/"
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

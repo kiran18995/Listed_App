@@ -1,10 +1,14 @@
-package com.example.listedtask.api
+package com.kiran.listedapp.api
 
-import com.example.listedtask.models.Dashboard
+import com.kiran.listedapp.models.Dashboard
+import com.kiran.listedapp.BuildConfig
 import retrofit2.http.GET
 
 interface DashboardApi {
-    @GET("api/v1/dashboardNew")
-    suspend fun getData(): Dashboard
+    companion object {
+        const val BASE_URL = BuildConfig.BASE_URL
+    }
 
+    @GET("api/v1/dashboardNew")
+    suspend fun getDashboardData(): Dashboard
 }

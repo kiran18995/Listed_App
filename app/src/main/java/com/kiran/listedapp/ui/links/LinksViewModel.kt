@@ -1,44 +1,53 @@
 package com.kiran.listedapp.ui.links
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.listedtask.api.RetrofitInstance
-import com.example.listedtask.models.Dashboard
+import com.kiran.listedapp.data.repository.DashboardRepository
+import com.kiran.listedapp.models.Dashboard
+import com.kiran.listedapp.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalTime
+import javax.inject.Inject
 
-class LinksViewModel : ViewModel() {
+@HiltViewModel
+class LinksViewModel @Inject constructor(private val repository: DashboardRepository) :
+    ViewModel() {
 
-    private val _isLoading = MutableLiveData(false)
+    private val _dashboardData = MutableStateFlow<Resource<Dashboard>>(Resource.Loading())
+    val dashboardData: StateFlow<Resource<Dashboard>> = _dashboardData
 
-    var isLoaded = false
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    private val _greetings = MutableStateFlow("")
+    val greetings: StateFlow<String> = _greetings
 
-    private val _errorMessage = MutableLiveData<String?>(null)
-    val errorMessage: LiveData<String?>
-        get() = _errorMessage
+    init {
+        initGreetings()
+        fetchDashboardData()
+    }
 
-    private val _dashBoardData: MutableLiveData<Dashboard> = MutableLiveData<Dashboard>()
+    private fun initGreetings() {
+        _greetings.value = when (LocalTime.now().hour) {
+            in 6..11 -> GOOD_MORNING
+            in 12..16 -> GOOD_AFTERNOON
+            in 17..20 -> GOOD_EVENING
+            else -> GOOD_NIGHT
+        }
+    }
 
-    val dashboard: LiveData<Dashboard>
-        get() = _dashBoardData
-
-
-    fun getData() {
+    private fun fetchDashboardData() {
         viewModelScope.launch {
-            if (!isLoaded) {
-                _isLoading.value = true
-            }
-            try {
-                _dashBoardData.value = RetrofitInstance.api.getData()
-            } catch (e: Exception) {
-                _errorMessage.value = e.message
-            } finally {
-                _isLoading.value = false
-                isLoaded = true
+            repository.getDashboardData().collect { resource ->
+                _dashboardData.emit(resource)
             }
         }
+    }
+
+    companion object {
+        private const val GOOD_AFTERNOON = "Good afternoon"
+        private const val GOOD_MORNING = "Good morning"
+        private const val GOOD_EVENING = "Good evening"
+        private const val GOOD_NIGHT = "Good night"
     }
 }
